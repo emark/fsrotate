@@ -22,7 +22,7 @@ use strict;
 use warnings;
 use utf8;
 
-use constant DEBUG => 1;
+use constant DEBUG => 0;
 
 my $dlist = 'info.txt'; #File of direcory listing
 my $files_limit = 3; #Count of files for reduce
@@ -50,13 +50,14 @@ foreach my $key (@dirs){
 	print "\nChange directory to $key\n";
 	if (chdir $key) {
 		@files  = <*>;
-		splice (@files, -1*$files_limit) if @files > $files_limit;
+		if (@files > $files_limit){
+			splice (@files, -1*$files_limit);
 
-		foreach my $key (@files){
-			print "Unlink file: $key ...";
-			unlink $key if !DEBUG;
-			print "done\n";
-
+			foreach my $key (@files){
+				print "Unlink file: $key ...";
+				unlink $key if !DEBUG;
+				print "done\n";
+			};
 		};
 		chdir "../";
 	}else{
