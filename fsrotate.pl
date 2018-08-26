@@ -31,6 +31,8 @@ my @struct = ();
 my @dirs = ();
 my @files = ();
 
+print "Warning! Debug mode\n" if DEBUG;
+
 open (STRUCT, "< info.txt") || die "Can't open info.txt";
 @struct = <STRUCT>;
 close STRUCT;
