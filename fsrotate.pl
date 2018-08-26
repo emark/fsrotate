@@ -13,7 +13,7 @@
 #        NOTES: emark.github.com
 #       AUTHOR: Sviridenko Maxim 
 # ORGANIZATION: 
-#      VERSION: 1.0
+#      VERSION: 0.1
 #      CREATED: 26.08.2018 19:45:41
 #     REVISION: ---
 #===============================================================================
@@ -56,6 +56,7 @@ foreach my $key (@dirs){
 			print "done\n";
 
 		};
+		chdir "../";
 	}else{
 		print "Can't change directory";	
 
