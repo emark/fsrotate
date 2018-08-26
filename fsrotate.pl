@@ -64,5 +64,6 @@ foreach my $key (@dirs){
 
 	};
 };
+print "All done. To quit press Enter.";
 
 1;
