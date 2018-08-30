@@ -22,7 +22,7 @@ use strict;
 use warnings;
 use utf8;
 
-use constant DEBUG => 0;
+use constant DEBUG => 1;
 
 my $dlist = 'info.txt'; #File of direcory listing
 my $files_limit = 1; #Count of files for reduce
@@ -60,7 +60,7 @@ foreach my $key (@dirs){
 			};
 		};
 		#Set path to root
-		$key=~s/([0-9]|[a-z]|[A-Z])/../g;
+		$key=~s/(\w+)/../g;
 		print "Change dir to $key\n" if DEBUG;
 		chdir $key;
 	}else{
@@ -68,6 +68,7 @@ foreach my $key (@dirs){
 
 	};
 };
+
 print "All done. To quit press Enter.";
 
 1;
