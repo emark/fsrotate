@@ -25,7 +25,7 @@ use utf8;
 use constant DEBUG => 0;
 
 my $dlist = 'info.txt'; #File of direcory listing
-my $files_limit = 3; #Count of files for reduce
+my $files_limit = 1; #Count of files for reduce
 
 my @struct = ();
 my @dirs = ();
@@ -59,7 +59,10 @@ foreach my $key (@dirs){
 				print "done\n";
 			};
 		};
-		chdir "../";
+		#Set path to root
+		$key=~s/([0-9]|[a-z]|[A-Z])/../g;
+		print "Change dir to $key\n";
+		chdir $key;
 	}else{
 		print "Can't change directory\n";	
 
