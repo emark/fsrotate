@@ -61,7 +61,7 @@ foreach my $key (@dirs){
 		};
 		#Set path to root
 		$key=~s/([0-9]|[a-z]|[A-Z])/../g;
-		print "Change dir to $key\n";
+		print "Change dir to $key\n" if DEBUG;
 		chdir $key;
 	}else{
 		print "Can't change directory\n";	
