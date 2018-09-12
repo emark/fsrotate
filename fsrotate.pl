@@ -22,12 +22,14 @@ use strict;
 use warnings;
 use utf8;
 use File::Copy;
+use Mojo::UserAgent;
 
 use constant DEBUG => 0;
 
 my $dlist = 'info.txt'; #File of direcory listing
-my $files_limit = 1; #Count of files for reduce
+my $files_limit = 3; #Count of files for reduce
 my $sync_dir = "YandexDisk/DB/"; #Directory for sync
+my $oauth = "AQAAAAASB2MoAAUyDgVUhKPu-kgajQZ-grGk-H0";
 my $syncfl = $ARGV[0] || ''; #Set flag to sync
 
 my @struct = ();
@@ -53,10 +55,16 @@ foreach my $key (@struct){
 
 #Clear sync dir
 if(!DEBUG && $syncfl){
-	chdir $sync_dir;
-	unlink <*>;
-	print "Clear synd dir is Ok\n";
-	chdir "../../";
+	if(chdir $sync_dir){
+		unlink <*>;
+		print "Clear synd dir is Ok\n";
+		chdir "../../";
+
+		# Clear Trash
+		my $ua  = Mojo::UserAgent->new;
+		my $tx = $ua->delete('https://cloud-api.yandex.net/v1/disk/trash/resources' => {Authorization => "OAuth $oauth", Accept => 'application/json'});
+		print $tx->result->body if (DEBUG);
+	};
 };
 
 foreach my $dir (@dirs){
