@@ -27,7 +27,7 @@ use Mojo::UserAgent;
 use constant DEBUG => 0;
 
 my $dlist = 'info.txt'; #File of direcory listing
-my $files_limit = 3; #Count of files for reduce
+my $files_limit = 1; #Count of files for reduce
 my $sync_dir = "YandexDisk/DB/"; #Directory for sync
 my $oauth = "AQAAAAASB2MoAAUyDgVUhKPu-kgajQZ-grGk-H0";
 my $syncfl = $ARGV[0] || ''; #Set flag to sync
@@ -72,9 +72,10 @@ foreach my $dir (@dirs){
 	if (chdir $dir) {
 		@files  = <*>;
 		
+		$sync_file = splice (@files, -1*$files_limit); #Get file for backup
+
 		#Deleting files from directory
 		if (@files > $files_limit){
-			$sync_file = splice (@files, -1*$files_limit);
 
 			foreach my $key (@files){
 				print "Unlink file: $key ...";
